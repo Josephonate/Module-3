@@ -1,11 +1,11 @@
 // Assignment code here
-var special = " !#$%&'\"()*+,-.\\/:;<=>?@[\]^_`{|}~";
+var special = "!#$%&'\"()*+,-.\\/:;<=>?@[\]^_`{|}~";
 var specialArray = special.split("");
 var numbers = "0123456789";
 var numbersArray = numbers.split("");
 var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 var upperCaseArray = upperCase.split("");
-var lowerCase = "abcedefghijklmnopqrstuvwxyz";
+var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var lowerCaseArray = lowerCase.split("");
 
 // This is my random password gen criteria.
@@ -15,22 +15,22 @@ function passwordGen() {
 
   if (length < 8) {
     alert("Your password is too short try again!");
-    return
+    return;
   } else if (length > 128) {
     alert("Your password is too long try again!");
-    return
+    return;
   }
 
-  var isSpecial = confirm("Do you want special characters in your Password?")
-  console.log(isSpecial)
-  var isUpper = confirm("Do you want Uppercase letters in your Password?")
+  var isSpecial = confirm("Do you want special characters in your Password?");
+  // console.log(isSpecial)
+  var isUpper = confirm("Do you want Uppercase letters in your Password?");
 
-  var isLower = confirm("Do you want lowercase letters in your Password?")
+  var isLower = confirm("Do you want lowercase letters in your Password?");
 
-  var isNumbers = confirm("Do you want Numbers in your Password?")
+  var isNumbers = confirm("Do you want Numbers in your Password?");
 
   if (isSpecial === false && isUpper === false && isLower === false && isNumbers === false) {
-    alert("You must select at least one choice!")
+    alert("You must select at least one choice!");
     return null;
   }
   var passwordOptions = {
@@ -41,7 +41,6 @@ function passwordGen() {
     hasNumbers: isNumbers,
   }
   return passwordOptions;
-
 }
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
@@ -57,9 +56,9 @@ function writePassword() {
 
 function generatePassword() {
   var options = passwordGen();
-  var result = []
-  var concatChar = []
-  var randomChar = []
+  var password = [];
+  var concatChar = [];
+  var randomChar = [];
 
   if (options.hasLower) {
     concatChar = concatChar.concat(lowerCaseArray);
@@ -68,32 +67,33 @@ function generatePassword() {
   if (options.hasUpper) {
     concatChar = concatChar.concat(upperCaseArray);
     randomChar.push(generateRandom(upperCaseArray));
-  } if (options.hasNumbers) {
+  }
+  if (options.hasNumbers) {
     concatChar = concatChar.concat(numbersArray);
     randomChar.push(generateRandom(numbersArray));
-  } if (options.hasSpecial) {
+  }
+  if (options.hasSpecial) {
     concatChar = concatChar.concat(specialArray);
     randomChar.push(generateRandom(specialArray));
   }
-for (var i = 0; i < options.length; i++) {
-  var concatChar = generateRandom(concatChar)
-  result.push(concatChar);
-}
-for (var i = 0; i < randomChar.length; i++) {
-  result[i] = randomChar[i];
-}
-return result.join("");
+  for (var i = 0; i < options.length; i++) {
+    var concatChar = generateRandom(concatChar);
+    password.push(concatChar);
+  }
+
+  for (var i = 0; i < randomChar.length; i++) {
+    password[i] = randomChar[i];
+
+  }
+  return password.join("");
 }
 
 function generateRandom(arr) {
 
   var randomChar = Math.floor(Math.random() * arr.length);
-  console.log(randomChar);
   var randomElement = arr[randomChar];
   return randomElement;
 }
-
-
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
