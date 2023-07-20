@@ -9,6 +9,7 @@ var lowerCase = "abcdefghijklmnopqrstuvwxyz";
 var lowerCaseArray = lowerCase.split("");
 
 // This is my random password gen criteria.
+// This gives the user prompts for pass criteria.
 function passwordGen() {
 
   var length = prompt("Please choose a length between 8 to 128 Characters");
@@ -19,7 +20,7 @@ function passwordGen() {
   } else if (length > 128) {
     alert("Your password is too long try again!");
     return;
-  }
+  } 
 
   var isSpecial = confirm("Do you want special characters in your Password?");
   // console.log(isSpecial)
@@ -54,6 +55,9 @@ function writePassword() {
   passwordText.value = password;
 }
 
+// This function verifies what criteria the user chose for the password
+// and generates the random char for use.
+
 function generatePassword() {
   var options = passwordGen();
   var password = [];
@@ -77,8 +81,8 @@ function generatePassword() {
     randomChar.push(generateRandom(specialArray));
   }
   for (var i = 0; i < options.length; i++) {
-    var concatChar = generateRandom(concatChar);
-    password.push(concatChar);
+    var possibleChar = generateRandom(concatChar);
+    password.push(possibleChar);
   }
 
   for (var i = 0; i < randomChar.length; i++) {
