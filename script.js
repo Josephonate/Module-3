@@ -1,42 +1,54 @@
 // Assignment code here
+var special = " !#$%&'\"()*+,-.\\/:;<=>?@[\]^_`{|}~";
+var specialArray = special.split("");
+var numbers = "0123456789";
+var numbersArray = numbers.split("");
+var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var upperCaseArray = upperCase.split("");
+var lowerCase = "abcedefghijklmnopqrstuvwxyz";
+var lowerCaseArray = lowerCase.split("");
 
 // This is my random password gen criteria.
-function passwordGen(){
+function passwordGen() {
 
-var char = " !#$%&'\"()*+,-.\\/:;<=>?@[\]^_`{|}~";
-var numbers = "0123456789";
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-var lowerCase = "abcedefghijklmnopqrstuvwxyz";
-var length = prompt("Please choose a length between 8 to 128 Characters");
+  var length = prompt("Please choose a length between 8 to 128 Characters");
 
-if (length < 8) {
- alert ("Your password is too short try again!");
-}else if (length > 128) {
- alert ("Your password is too long try again!");
-} else {
- // return length;
-}
+  if (length < 8) {
+    alert("Your password is too short try again!");
+    return
+  } else if (length > 128) {
+    alert("Your password is too long try again!");
+    return
+  }
 
-if (confirm ("Do you want special characters in your Password?")) {
- // return char;
-}
+  var isSpecial = confirm("Do you want special characters in your Password?")
+  console.log(isSpecial)
+  var isUpper = confirm("Do you want Uppercase letters in your Password?")
 
-if (confirm ("Do you want Uppercase letters in your Password?") ) {
- // return upperCase;
-}
-if(confirm ("Do you want lowercase letters in your Password?")){
- // return lowerCase;
-}
-if(confirm ("Do you want Numbers in your Password?")){
- return length, char, upperCase, lowerCase, numbers;
-}
+  var isLower = confirm("Do you want lowercase letters in your Password?")
+
+  var isNumbers = confirm("Do you want Numbers in your Password?")
+
+  if (isSpecial === false && isUpper === false && isLower === false && isNumbers === false) {
+    alert("You must select at least one choice!")
+    return null;
+  }
+  var passwordOptions = {
+    length: length,
+    hasSpecial: isSpecial,
+    hasUpper: isUpper,
+    hasLower: isLower,
+    hasNumbers: isNumbers,
+  }
+  return passwordOptions;
+
 }
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
 
 // Write password to the #password input
 function writePassword() {
-  gen
+
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
@@ -44,14 +56,41 @@ function writePassword() {
 }
 
 function generatePassword() {
+  var options = passwordGen();
+  var result = []
+  var concatChar = []
+  var randomChar = []
 
-  var password = "";
-  
- for(var i = 0; i < length; i++){
-  var randomChar = Math.floor(Math.random() * length);
-  password = password = randomChar;
- }
- return password;
+  if (options.hasLower) {
+    concatChar = concatChar.concat(lowerCaseArray);
+    randomChar.push(generateRandom(lowerCaseArray));
+  }
+  if (options.hasUpper) {
+    concatChar = concatChar.concat(upperCaseArray);
+    randomChar.push(generateRandom(upperCaseArray));
+  } if (options.hasNumbers) {
+    concatChar = concatChar.concat(numbersArray);
+    randomChar.push(generateRandom(numbersArray));
+  } if (options.hasSpecial) {
+    concatChar = concatChar.concat(specialArray);
+    randomChar.push(generateRandom(specialArray));
+  }
+for (var i = 0; i < options.length; i++) {
+  var concatChar = generateRandom(concatChar)
+  result.push(concatChar);
+}
+for (var i = 0; i < randomChar.length; i++) {
+  result[i] = randomChar[i];
+}
+return result.join("");
+}
+
+function generateRandom(arr) {
+
+  var randomChar = Math.floor(Math.random() * arr.length);
+  console.log(randomChar);
+  var randomElement = arr[randomChar];
+  return randomElement;
 }
 
 
